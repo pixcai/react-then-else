@@ -1,5 +1,5 @@
 {
-  "name": "react-cond",
+  "name": "react-then-else",
   "version": "1.0.0",
   "description": "Render component with condition in React",
   "main": "index.js",
@@ -17,6 +17,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0",
@@ -332,10 +333,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pixcai/react-cond.git"
+    "url": "git+https://github.com/pixcai/react-then-else.git"
   },
   "bugs": {
-    "url": "https://github.com/pixcai/react-cond/issues"
+    "url": "https://github.com/pixcai/react-then-else/issues"
   },
-  "homepage": "https://github.com/pixcai/react-cond#readme"
+  "homepage": "https://github.com/pixcai/react-then-else#readme"
 }

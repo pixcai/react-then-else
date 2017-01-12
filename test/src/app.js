@@ -1,38 +1,49 @@
 import React, { Component } from 'react'
-import Cond, { True, False } from '../..'
+import { If, Then, Else } from '../..'
 
 class App extends Component {
-    constructor () {
+    constructor() {
         super()
         this.state = {
-            value: true
+            condition: true,
+            toggle: true
         }
-        this.onChangeCond = this.onChangeCond.bind(this)
+        this.onConditionChange = this.onConditionChange.bind(this)
+        this.onToggleChange = this.onToggleChange.bind(this)
     }
 
-    onChangeCond () {
+    onConditionChange() {
         this.setState({
-            value: !this.state.value
+            condition: !this.state.condition
         })
     }
 
-    render () {
+    onToggleChange() {
+        this.setState({
+            toggle: !this.state.toggle
+        })
+    }
+
+    render() {
         return (
-            <div>
-                <Cond value={this.state.value}>
-                    <h1>Any</h1>
-                </Cond>
-                <Cond value={this.state.value}>
-                    <True>
-                        <h1>True</h1>
-                    </True>
-                </Cond>
-                <Cond value={this.state.value}>
-                    <False>
-                        <h1>False</h1>
-                    </False>
-                </Cond>
-                <button onClick={this.onChangeCond}>Change Cond</button>
+            <div style={{ textAlign: 'center' }}>
+                <If condition={this.state.condition} style={{ background: 'lightgrey' }}>
+                    <h1>ALWAYS SEE ME</h1>
+                    <Then tag='h2'>
+                        This is <span style={{ color: 'blue'}}>Then</span>
+                        <p>Amazing</p>
+                    </Then>
+                    <Else>
+                        <h2>This is <span style={{ color: 'red' }}>Else</span></h2>
+                        <If condition={this.state.toggle}>
+                            <Then onClick={() => alert('Congratulations')}>
+                                <h2>Congratulations</h2>
+                            </Then>
+                            <button onClick={this.onToggleChange}>Toggle Me</button>
+                        </If>
+                    </Else>
+                </If>
+                <button onClick={this.onConditionChange}>Change Condition</button>
             </div>
         )
     }

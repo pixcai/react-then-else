@@ -1,43 +1,58 @@
 import React, { Component, PropTypes } from 'react'
 
-class BranchComponent extends Component {
-    render () {
-        return this.props.cond(Boolean(this.context.value))
-    }
+const propsFilter = ({ condition, tag, ...others }) => others
+
+const withWrapper = tag => {
+    if (typeof tag === 'function') tag = tag()
+    if (typeof tag !== 'string') tag = 'div'
+    return tag
 }
 
-BranchComponent.contextTypes = {
-    value: PropTypes.bool
-}
-
-const makeBranch = cond => {
-    return class Branch extends Component {
-        render () {
-            return <BranchComponent cond={value => cond === value ? this.props.children : null} />
-        }
-    }
-}
-
-export const True = makeBranch(true)
-export const False = makeBranch(false)
-
-export default class CondComponent extends Component {
-    getChildContext () {
+export class If extends Component {
+    getChildContext() {
         return {
-            value: this.props.value
+            condition: Boolean(this.props.condition)
         }
     }
 
-    render () {
-        return this.props.children
+    render() {
+        return React.createElement(
+            withWrapper(this.props.tag),
+            propsFilter(this.props)
+        )
     }
 }
 
-CondComponent.propTypes = {
-    value: PropTypes.any.isRequired,
-    children: PropTypes.element
+If.propTypes = {
+    condition: PropTypes.any.isRequired,
+    tag: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.arrayOf(PropTypes.element)
+    ])
 }
 
-CondComponent.childContextTypes = {
-    value: PropTypes.bool
+class Branch extends Component {
+    render() {
+        if (this.context.condition !== this.props.condition) {
+            return null
+        }
+        return React.createElement(
+            withWrapper(this.props.tag),
+            propsFilter(this.props)
+        )
+    }
+}
+
+If.childContextTypes = Branch.contextTypes = {
+    condition: PropTypes.bool
+}
+
+export const Then = props => <Branch condition={true} {...props} />
+export const Else = props => <Branch condition={false} {...props} />
+
+export default {
+  If,
+  Then,
+  Else
 }

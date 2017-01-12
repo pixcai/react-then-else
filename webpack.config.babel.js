@@ -1,6 +1,6 @@
 export default {
     entry: {
-        'react-cond': './test/src/index.js',
+        'react-then-else': './test/src/index.js',
     },
     output: {
         path: 'test',

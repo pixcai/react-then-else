@@ -33,7 +33,7 @@ render() {
                     <span class="ok">Have a beer, {this.props.name}!</span>
                 </Then>
                 <Else>
-                  <span>Sorry, {this.props.name}, you are not old enough.</span>
+                    <span>Sorry, {this.props.name}, you are not old enough.</span>
                 </Else>
             </If>
             <Footer />
@@ -48,16 +48,11 @@ render() {
 
     npm install react-then-else
 
-### Bower:
-
-    bower install react-then-else
-
-
 ## Example
 
 ```javascript
 import React from 'react';
-import { If, Then, Else } from 'react-if';
+import { If, Then, Else } from 'react-then-else';
 
 class Beer extends React.Component {
 
@@ -86,10 +81,10 @@ class Beer extends React.Component {
 
 ```javascript
 // ES2015
-import { If, Then, Else } from 'react-if';
+import { If, Then, Else } from 'react-then-else';
 
 // CommonJS:
-const { If, Then, Else } = require('react-if');
+const { If, Then, Else } = require('react-then-else');
 ```
 
 ## API
@@ -99,9 +94,7 @@ const { If, Then, Else } = require('react-if');
 | Property         |         Type        |
 | ---------------- | ------------------- |
 | `condition`      | Boolean             |
-| ---------------- | ------------------- |
-| `tag`            | String or Function] |
-| ---------------- | ------------------- |
+| `tag`            | String or Function  |
 | any others props | Any Type            |
 
 If `condition` evaluates to `true`, renders the `<Then />` block will be rendered, otherwise renders the `<Else />` block. Either block may be omitted.

@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 
-const propsFilter = ({ condition, tag, ...others }) => others
-
-const withWrapper = tag => {
-    if (typeof tag === 'function') tag = tag()
-    if (typeof tag !== 'string') tag = 'div'
-    return tag
+const Children = ({ condition, tag, ...others }) => {
+    if (typeof tag !== 'string') {
+        tag = 'div'
+    }
+    return React.createElement(tag, others)
 }
 
-export class If extends Component {
+export class If extends PureComponent {
     getChildContext() {
         return {
             condition: Boolean(this.props.condition)
@@ -16,10 +15,7 @@ export class If extends Component {
     }
 
     render() {
-        return React.createElement(
-            withWrapper(this.props.tag),
-            propsFilter(this.props)
-        )
+        return <Children {...this.props} />
     }
 }
 
@@ -32,15 +28,12 @@ If.propTypes = {
     ])
 }
 
-class Branch extends Component {
+class Branch extends PureComponent {
     render() {
         if (this.context.condition !== this.props.condition) {
             return null
         }
-        return React.createElement(
-            withWrapper(this.props.tag),
-            propsFilter(this.props)
-        )
+        return <Children {...this.props} />
     }
 }
 
@@ -56,3 +49,4 @@ export default {
   Then,
   Else
 }
+
